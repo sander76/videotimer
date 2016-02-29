@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML512 </title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+  <video  loop controls="true" src="/static/video/ipad7.mp4" id="myVideo" type="video/mp4" >Something is wrong</video>
+  <!-- <script src="js/scripts.js"></script> -->
+  <div id="demo">test</div>
+</body>
+<script>
+  var timings = {
+    "10": "39581",
+    "25": "30925"
+  };
+  var prevtime = 0;
+  //var demo = document.getElementById("demo");
+  var vid = document.getElementById("myVideo");
+  vid.ontimeupdate = function() {
+    myFunction()
+  };
+
+  function myFunction() {
+    var cur_time = (Math.round(vid.currentTime)).toString();
+    //demo.innerHTML = cur_time;
+    var id = timings[cur_time];
+    var httpRequest;
+    //console.log(id);
+    if (typeof id !== "undefined" && prevtime !== cur_time) {
+      prevtime = cur_time;
+      console.log(id);
+      httpRequest = new XMLHttpRequest();
+      httpRequest.onreadystatechange = handleResponse;
+      httpRequest.open("GET", "/hub/" + id);
+      httpRequest.send(null);
+    }
+  }
+
+  function handleResponse() {
+
+  }
+</script>
+
+</html>
